@@ -1,0 +1,20 @@
+url: https://www.place-emploi-public.gouv.fr/
+api_path: https://www.place-emploi-public.gouv.fr/ajax-min.php
+parser_parameters:
+  title : //li//a[1]//div[1]//span[1]
+  employer : //li//a[1]//div[2]//span[1]
+  topic : //li//a[1]//div[3]//span[1]
+  localization : //li//a[1]//div[4]//span[1]
+  affiliate : //li//a[1]//div[5]//span[1]
+  date : //li//a[1]//div[6]//span[1]
+  url : //li/a[1]/@href
+time_sleep: 0.6
+max_offset: 5
+columns_need_correction:
+  - date
+  - employer
+  - title
+  - topic
+corrections:
+  - '\n                '
+  - '            '
