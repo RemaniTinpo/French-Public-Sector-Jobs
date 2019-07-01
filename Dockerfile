@@ -15,6 +15,5 @@ WORKDIR /opt/program
 COPY main.py /opt/program
 COPY src/ /opt/program/src
 COPY data/ /opt/program/data
-RUN chmod 775 /opt/program/data
 
 CMD [ "python", "./main.py" ]
