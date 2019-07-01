@@ -42,10 +42,10 @@ class scrapper():
         in src/parameters.yaml.
 
         tree: lxml.html.HtmlElement
-        tree: tree comming from html.fromstring()
+        tree: tree coming from html.fromstring()
 
         parser_param: dict
-        parser_param: dictionnary of xpath
+        parser_param: dictionary of xpath
         """
         res = dict()
         for elem in parser_param.keys():
@@ -82,6 +82,9 @@ class scrapper():
 
     def cleaning(self, db):
         """Simple regex replacement removing linebreak.
+
+        db: pandas dataframe
+        db: pandas dataframe you want to clean
         """
         for col in self.columns_need_correction:
             for val in self.corrections:
