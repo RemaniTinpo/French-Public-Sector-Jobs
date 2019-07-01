@@ -4,6 +4,7 @@ import pandas as pd
 import requests
 import time
 import yaml
+import sys
 import re
 
 class scrapper():
@@ -15,6 +16,7 @@ class scrapper():
             self.url = doc['url']
             self.api_path = doc['api_path']
             self.parser_parameters = doc['parser_parameters']
+            self.columns = self.parser_parameters.keys()
             self.max_offset = int(doc['max_offset'])
             self.time_sleep = float(doc['time_sleep'])
             self.columns_need_correction = doc['columns_need_correction']
@@ -25,6 +27,12 @@ class scrapper():
         """Pick up a key, requiered as token by the ajax.php request."""
         url = self.url
         txt = requests.get(self.url).text
+        try:
+            re.search('Erreur de la base de données', txt).group(0)
+        except:
+            print('Site On')
+        else:
+            sys.exit('The site is down ...')
         key = re.search('searchNonce":".+?(?=")', txt).group(0)
         self.key = key.split('"')[2]
 
@@ -63,6 +71,10 @@ class scrapper():
         if print_out:
             print(payload)
         response = requests.post(self.api_path, data=payload).json()
+        if response['message'] == 'Aucune offre':
+            sys.exit('The search of the website is down ...')
+
+
         content = response['content']
         tree = html.fromstring(content)
         return pd.DataFrame(self.parser(tree, self.parser_parameters))
@@ -81,8 +93,7 @@ class scrapper():
         """Collect automaticaly all the available listing."""
         error_count = 0
         self.key_colletor()
-        db = pd.DataFrame(columns=['affiliate','date','employer',
-                                   'localization','title','topic','url'])
+        db = pd.DataFrame(columns=self.columns)
         for offset in tqdm(range(1,self.max_offset)):
             try:
                 self.data_collector(offset)
