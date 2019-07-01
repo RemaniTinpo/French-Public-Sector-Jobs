@@ -5,8 +5,8 @@ Scraper on the French state jobs offers website: https://www.place-emploi-public
 - First Git clone this repository
 
 #### With Docker
-- At the root of the folder launch: docker build . -t <name_of_your_choice>
-- Then: docker run -v /path/on/your/computer/:/opt/program/data <name_of_your_choice>
+- At the root of the folder launch: <strong>docker build . -t <name_of_your_choice><strong>
+- Then: <strong>docker run -v /path/on/your/computer/:/opt/program/data <name_of_your_choice><strong>
 - When it will be done you will find a .csv file here: /path/on/your/computer/
 
 #### Without docker
