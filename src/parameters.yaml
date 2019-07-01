@@ -9,7 +9,7 @@ parser_parameters:
   date : //li/div[7]/span[1]
   url : //li/div[2]/a[1]/@href
 time_sleep: 0.6
-max_offset: 5
+max_offset: 205
 columns_need_correction:
   - date
   - employer
